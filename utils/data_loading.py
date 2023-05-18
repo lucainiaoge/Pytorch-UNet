@@ -73,7 +73,6 @@ class BasicDataset(Dataset):
 
         if is_mask:
             img = np.mean(img, axis=-1, keepdims=True).astype(img.dtype)
-            print(img.shape)
             mask = np.zeros((newH, newW), dtype=np.int64)
             for i, v in enumerate(mask_values):
                 if img.ndim == 2:
