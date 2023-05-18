@@ -30,6 +30,7 @@ def unique_mask_values(idx, mask_dir, mask_suffix):
         return np.unique(mask)
     elif mask.ndim == 3:
         mask = mask.reshape(-1, mask.shape[-1])
+        print(mask.shape)
         if mask.shape[0] > 1:
             mask = np.mean(mask, axis=0, keepdims=True).astype(mask.dtype)
         return np.unique(mask, axis=0)
