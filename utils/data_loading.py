@@ -32,7 +32,7 @@ def unique_mask_values(idx, mask_dir, mask_suffix):
         mask = mask.reshape(-1, mask.shape[-1])
         print(mask.shape)
         if mask.shape[0] > 1:
-            mask = np.mean(mask, axis=0, keepdims=True).astype(mask.dtype)
+            mask = np.mean(mask, axis=-1, keepdims=True).astype(mask.dtype)
         return np.unique(mask, axis=0)
     else:
         raise ValueError(f'Loaded masks should have 2 or 3 dimensions, found {mask.ndim}')
@@ -41,10 +41,10 @@ def unique_mask_values(idx, mask_dir, mask_suffix):
 class BasicDataset(Dataset):
     def __init__(self, images_dir: str, mask_dir: str, scale: float = 1.0, mask_suffix: str = ''):
         self.images_dir = Path(images_dir)
-        self.mask_dir = Path(mask_dir)
+        self. = Path(mask_dir)
         assert 0 < scale <= 1, 'Scale must be between 0 and 1'
         self.scale = scale
-        self.mask_suffix = mask_suffix
+        self.mask_suffix = mask_suffixmask_dir
 
         self.ids = [splitext(file)[0] for file in listdir(images_dir) if isfile(join(images_dir, file)) and not file.startswith('.')]
         if not self.ids:
@@ -73,6 +73,8 @@ class BasicDataset(Dataset):
         img = np.asarray(pil_img)
 
         if is_mask:
+            img = np.mean(img, axis=-1, keepdims=True).astype(mask.dtype)
+            print(img.shape)
             mask = np.zeros((newH, newW), dtype=np.int64)
             for i, v in enumerate(mask_values):
                 if img.ndim == 2:
