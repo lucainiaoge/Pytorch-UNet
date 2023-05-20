@@ -79,7 +79,8 @@ class BasicDataset(Dataset):
                     mask[img == v] = i
                 else:
                     mask[(img == v).all(-1)] = i
-
+            if (mask >= 255).any():
+                mask = (mask / 255).astype(mask.dtype)
             return mask
 
         else:
