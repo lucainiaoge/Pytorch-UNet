@@ -52,7 +52,7 @@ def train_model(
     n_train = len(dataset) - n_val
     train_set, val_set = random_split(dataset, [n_train, n_val], generator=torch.Generator().manual_seed(0))
 
-    train_set = torch.utils.data.ConcatDataset(train_set, dataset_ext) # new: dataset with extension
+    train_set = ConcatDataset([train_set, dataset_ext]) # new: dataset with extension
 
     # 3. Create data loaders
     loader_args = dict(batch_size=batch_size, num_workers=os.cpu_count(), pin_memory=True)
