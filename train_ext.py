@@ -80,6 +80,7 @@ def train_model(
         Device:          {device.type}
         Images scaling:  {img_scale}
         Mixed Precision: {amp}
+        Ext Ratio:       {ext_ratio}
     ''')
 
     # 4. Set up the optimizer, the loss, the learning rate scheduler and the loss scaling for AMP
@@ -210,9 +211,9 @@ if __name__ == '__main__':
     logging.info(f'Network:\n'
                  f'\t{model.n_channels} input channels\n'
                  f'\t{model.n_classes} output channels (classes)\n'
-                 f'\t{"Bilinear" if model.bilinear else "Transposed conv"} upscaling\n'
-                 f'\t ext ratio: {ext_ratio}')
+                 f'\t{"Bilinear" if model.bilinear else "Transposed conv"} upscaling\n')
 
+    logging.info(f'Data extension ratio: {args.ext_ratio}')
     if args.load:
         state_dict = torch.load(args.load, map_location=device)
         del state_dict['mask_values']
