@@ -21,8 +21,8 @@ from utils.dice_score import dice_loss
 
 dir_img = Path('./data/imgs/')
 dir_mask = Path('./data/masks/')
-dir_img_ext = Path('./data_ext/imgs/')
-dir_mask_ext = Path('./data_ext/masks/')
+dir_img_ext = Path('./data_ext2/imgs/')
+dir_mask_ext = Path('./data_ext2/masks/')
 dir_checkpoint = Path('./checkpoints/')
 
 
