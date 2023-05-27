@@ -56,7 +56,9 @@ def train_model(
     n_ext_train = int(len(dataset_ext) * ext_ratio)
     n_ext_val = len(dataset_ext) - n_ext_train
     train_ext, val_ext = random_split(dataset_ext, [n_ext_train, n_ext_val], generator=torch.Generator().manual_seed(0))
-    train_set = ConcatDataset([train_set, train_ext]) # new: dataset with extension
+
+    # train_set = ConcatDataset([train_set, train_ext]) # new: dataset with extension
+    train_set = train_ext
 
     # 3. Create data loaders
     loader_args = dict(batch_size=batch_size, num_workers=os.cpu_count(), pin_memory=True)
@@ -214,7 +216,7 @@ if __name__ == '__main__':
                  f'\t{"Bilinear" if model.bilinear else "Transposed conv"} upscaling\n')
 
     logging.info(f'Data extension ratio: {args.ext_ratio}')
-    logging.info(f'Trained using raw data')
+    logging.info(f'Trained without raw data')
     if args.load:
         state_dict = torch.load(args.load, map_location=device)
         del state_dict['mask_values']
