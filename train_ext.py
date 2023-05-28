@@ -81,6 +81,7 @@ def train_model(
         Images scaling:  {img_scale}
         Mixed Precision: {amp}
         Ext Ratio:       {ext_ratio}
+        Ext Mode:        raw+ext
     ''')
 
     # 4. Set up the optimizer, the loss, the learning rate scheduler and the loss scaling for AMP
